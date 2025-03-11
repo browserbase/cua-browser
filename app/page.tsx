@@ -36,7 +36,7 @@ const Tooltip = ({
               stiffness: 400,
               damping: 17,
             }}
-            className="absolute w-auto px-3 py-2 min-w-max left-1/2 -translate-x-1/2 bg-[#2E191E] text-white text-xs font-ppsupply  z-50 backdrop-blur-sm"
+            className="absolute w-auto px-3 py-2 min-w-max left-1/2 -translate-x-1/2 bg-[#2E191E] text-white text-xs font-ppsupply z-50 backdrop-blur-sm"
           >
             {text}
           </motion.span>
