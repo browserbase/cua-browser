@@ -250,18 +250,47 @@ export default function LegacyChatFeed({
     }
   }, [isWaitingForInput]);
 
-  // Track scroll position to apply conditional margin
+  // Track scroll position to apply conditional margin and capture scroll events
   useEffect(() => {
+    // Debounce function to limit how often we track scroll events
+    let scrollTimer: NodeJS.Timeout | null = null;
+    let lastScrollTop = 0;
+    
     const handleScroll = () => {
       if (chatContainerRef.current) {
-        setIsScrolled(chatContainerRef.current.scrollTop > 10);
+        const scrollTop = chatContainerRef.current.scrollTop;
+        setIsScrolled(scrollTop > 10);
+        
+        // Clear any existing timer
+        if (scrollTimer) clearTimeout(scrollTimer);
+        
+        // Set a new timer to track scroll after user stops scrolling
+        scrollTimer = setTimeout(() => {
+          // Only track if scroll position changed significantly (more than 100px)
+          if (Math.abs(scrollTop - lastScrollTop) > 100) {
+            // Track scroll event with PostHog
+            posthog.capture("chat_scroll", {
+              scroll_position: scrollTop,
+              scroll_direction: scrollTop > lastScrollTop ? "down" : "up",
+              session_id: agentStateRef.current.sessionId,
+              timestamp: new Date().toISOString(),
+              scroll_distance: Math.abs(scrollTop - lastScrollTop)
+            });
+            
+            // Update last scroll position
+            lastScrollTop = scrollTop;
+          }
+        }, 500); // 500ms debounce
       }
     };
 
     const container = chatContainerRef.current;
     if (container) {
       container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+        if (scrollTimer) clearTimeout(scrollTimer);
+      };
     }
   }, []);
 
@@ -970,6 +999,14 @@ export default function LegacyChatFeed({
   const handleUserInput = useCallback(
     async (input: string) => {
       if (!input.trim()) return;
+
+      // Track user input with PostHog
+      posthog.capture("user_input", {
+        input_text: input,
+        session_id: agentStateRef.current.sessionId,
+        input_length: input.length,
+        timestamp: new Date().toISOString()
+      });
 
       // Add user message to chat
       const userStep: BrowserStep = {
