@@ -1413,7 +1413,7 @@ export default function LegacyChatFeed({
 
             {/* Chat sidebar */}
             <div
-              className="w-full md:w-[450px] min-w-[360px] px-4 pb-4 md:p-6 flex flex-col flex-1 overflow-hidden"
+              className="w-full md:w-[450px] min-w-0 md:min-w-[360px] px-4 pb-4 md:p-6 flex flex-col flex-1 overflow-hidden"
               style={{
                 height: isMobile
                   ? "calc(100vh - 300px)"
