@@ -1381,6 +1381,7 @@ export default function LegacyChatFeed({
           transition={{ delay: 0.3 }}
         >
           <div className="flex flex-col md:flex-row h-full overflow-hidden">
+            {/* Main browser area */}
             <div className="w-full md:flex-[2] gap-y-2 p-4 md:p-6 md:border-l border-[#CAC8C7] order-first md:order-last flex flex-col items-center justify-center sticky top-0 z-20 bg-white">
               {/* Tabs */}
               {!isAgentFinished && uiState.sessionId && (
@@ -1410,8 +1411,9 @@ export default function LegacyChatFeed({
               )}
             </div>
 
+            {/* Chat sidebar */}
             <div
-              className="w-full md:w-[450px] px-4 pb-4 md:p-6 min-w-0 flex flex-col flex-1 overflow-hidden"
+              className="w-full md:w-[450px] min-w-[360px] px-4 pb-4 md:p-6 flex flex-col flex-1 overflow-hidden"
               style={{
                 height: isMobile
                   ? "calc(100vh - 300px)"
