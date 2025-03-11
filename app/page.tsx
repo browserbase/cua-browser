@@ -184,7 +184,7 @@ export default function Home() {
                   <Tooltip text="s/o to the 🅱️rowserbase devs">
                     <div className="w-3 h-3  bg-yellow-500 hover:scale-110 transition-transform" />
                   </Tooltip>
-                  <Tooltip text="@pk_iv and @alexdphan were here">
+                  <Tooltip text="@pk_iv, @alexdphan, @nosajio were here">
                     <div className="w-3 h-3  bg-green-500 hover:scale-110 transition-transform" />
                   </Tooltip>
                 </div>
