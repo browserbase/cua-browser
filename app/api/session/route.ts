@@ -97,10 +97,11 @@ async function createSession(timezone?: string) {
     browserSettings,
     keepAlive: true,
     region: getClosestRegion(timezone),
+    proxies: true,
     timeout: 600,
   });
   return {
-    session
+    session,
   };
 }
 
@@ -126,19 +127,19 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const timezone = body.timezone as string;
-    const { session } = await createSession(
-      timezone
-    );
+    const { session } = await createSession(timezone);
     const browser = await chromium.connectOverCDP(session.connectUrl);
     const defaultContext = browser.contexts()[0];
     const page = defaultContext.pages()[0];
-    await page.goto("https://www.google.com", { waitUntil: "domcontentloaded" });
+    await page.goto("https://www.google.com", {
+      waitUntil: "domcontentloaded",
+    });
     const liveUrl = await getDebugUrl(session.id);
     return NextResponse.json({
       success: true,
       sessionId: session.id,
       sessionUrl: liveUrl,
-      connectUrl: session.connectUrl
+      connectUrl: session.connectUrl,
     });
   } catch (error) {
     console.error("Error creating session:", error);
