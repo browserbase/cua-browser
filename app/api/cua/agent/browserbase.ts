@@ -38,14 +38,14 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
   private projectId: string;
   private session: BrowserbaseSession | null = null;
   private region: string;
-  private proxy: boolean;
+  private proxies: boolean;
   private sessionId: string | null;
 
   constructor(
     width: number = 1024,
     height: number = 768,
-    region: string = "us-west-2",
-    proxy: boolean = false,
+    region: string = "us-east-1",
+    proxies: boolean = true,
     sessionId: string | null = null
   ) {
     /**
@@ -54,18 +54,18 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
      * @param width - The width of the browser viewport. Default is 1024.
      * @param height - The height of the browser viewport. Default is 768.
      * @param region - The region for the Browserbase session. Default is "us-west-2". Pick a region close to you for better performance. https://docs.browserbase.com/guides/multi-region
-     * @param proxy - Whether to use a proxy for the session. Default is False. Turn on proxies if you're browsing is frequently interrupted. https://docs.browserbase.com/features/proxies
+     * @param proxies - Whether to use a proxy for the session. Default is False. Turn on proxies if you're browsing is frequently interrupted. https://docs.browserbase.com/features/proxies
      * @param sessionId - Optional. If provided, use an existing session instead of creating a new one.
      */
     super();
     // We're using a dynamic import here as a workaround since we don't have the actual types
     // In a real project, you would install the proper types and import correctly
-    this.bb = new Browserbase({ apiKey: process.env.BROWSERBASE_API_KEY });
+    this.bb = new Browserbase({ apiKey: process.env.BROWSERBASE_API_KEY});
     this.projectId = process.env.BROWSERBASE_PROJECT_ID!;
     this.session = null;
     this.dimensions = [width, height];
     this.region = region;
-    this.proxy = proxy;
+    this.proxies = proxies;
     this.sessionId = sessionId;
   }
 
@@ -105,7 +105,7 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
           | "us-east-1"
           | "eu-central-1"
           | "ap-southeast-1",
-        proxies: this.proxy,
+        proxies: true,
         keepAlive: true,
       };
 
@@ -126,40 +126,43 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
     // Inject inline cursor-rendering script globally for every page
     const pages = context.pages();
     const page = pages[pages.length - 1];
-    page.evaluate(() => {
-      const CURSOR_ID = '__cursor__';
+    page
+      .evaluate(() => {
+        const CURSOR_ID = "__cursor__";
 
-      // Check if cursor element already exists
-      if (document.getElementById(CURSOR_ID)) return;
+        // Check if cursor element already exists
+        if (document.getElementById(CURSOR_ID)) return;
 
-      const cursor = document.createElement('div');
-      cursor.id = CURSOR_ID;
-      Object.assign(cursor.style, {
-        position: 'fixed',
-        top: '0px',
-        left: '0px',
-        width: '20px',
-        height: '20px',
-        backgroundImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'black\' stroke=\'white\' stroke-width=\'1\' stroke-linejoin=\'round\' stroke-linecap=\'round\'><polygon points=\'2,2 2,22 8,16 14,22 17,19 11,13 20,13\'/></svg>")',
-        backgroundSize: 'cover',
-        pointerEvents: 'none',
-        zIndex: '99999',
-        transform: 'translate(-2px, -2px)',
-      });
-  
-      document.body.appendChild(cursor);
+        const cursor = document.createElement("div");
+        cursor.id = CURSOR_ID;
+        Object.assign(cursor.style, {
+          position: "fixed",
+          top: "0px",
+          left: "0px",
+          width: "20px",
+          height: "20px",
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='white' stroke-width='1' stroke-linejoin='round' stroke-linecap='round'><polygon points='2,2 2,22 8,16 14,22 17,19 11,13 20,13'/></svg>\")",
+          backgroundSize: "cover",
+          pointerEvents: "none",
+          zIndex: "99999",
+          transform: "translate(-2px, -2px)",
+        });
 
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.top = `${e.clientY}px`;
-        cursor.style.left = `${e.clientX}px`;
+        document.body.appendChild(cursor);
+
+        document.addEventListener("mousemove", (e) => {
+          cursor.style.top = `${e.clientY}px`;
+          cursor.style.left = `${e.clientX}px`;
+        });
+        document.addEventListener("mousedown", (e) => {
+          cursor.style.top = `${e.clientY}px`;
+          cursor.style.left = `${e.clientX}px`;
+        });
+      })
+      .catch((error) => {
+        console.error("Error injecting cursor-rendering script:", error);
       });
-      document.addEventListener("mousedown", (e) => {
-        cursor.style.top = `${e.clientY}px`;
-        cursor.style.left = `${e.clientX}px`;
-      });
-    }).catch((error) => {
-      console.error("Error injecting cursor-rendering script:", error);
-    });
 
     // Only navigate to Google if it's a new session
     if (!this.sessionId) {
