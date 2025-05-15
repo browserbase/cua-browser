@@ -5,3 +5,4 @@ downloads
 .DS_Store
 dist
 cache.json
+test/

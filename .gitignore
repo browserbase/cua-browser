@@ -82,3 +82,5 @@ target/
 
 # pnpm
 pnpm-lock.yaml
+
+test/
