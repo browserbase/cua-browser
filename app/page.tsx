@@ -120,7 +120,7 @@ export default function Home() {
           <nav className="flex justify-between items-center px-8 py-4 bg-white border-b border-[#CAC8C7] z-10">
             <div className="flex items-center gap-3">
               <a
-                href="https://www.browserbase.com/computer-use"
+                href="https://www.browserbase.com/cua/openai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 hover:opacity-90 transition-opacity duration-200"
@@ -139,7 +139,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2">
               <a
-                href="https://www.browserbase.com/computer-use"
+                href="https://www.browserbase.com/cua/openai"
                 target="_blank"
                 rel="noopener noreferrer"
               >
