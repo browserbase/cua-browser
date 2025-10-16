@@ -139,7 +139,6 @@ export async function POST(request: Request) {
       success: true,
       sessionId: session.id,
       sessionUrl: liveUrl,
-      connectUrl: session.connectUrl,
     });
   } catch (error) {
     console.error("Error creating session:", error);

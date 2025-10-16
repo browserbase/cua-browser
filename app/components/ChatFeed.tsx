@@ -53,7 +53,6 @@ export interface BrowserStep {
 interface AgentState {
   sessionId: string | null;
   sessionUrl: string | null;
-  connectUrl: string | null;
   steps: BrowserStep[];
   isLoading: boolean;
 }
@@ -190,7 +189,6 @@ export default function LegacyChatFeed({
   const agentStateRef = useRef<AgentState>({
     sessionId: null,
     sessionUrl: null,
-    connectUrl: null,
     steps: [],
     isLoading: false,
   });
@@ -198,12 +196,10 @@ export default function LegacyChatFeed({
   const [uiState, setUiState] = useState<{
     sessionId: string | null;
     sessionUrl: string | null;
-    connectUrl: string | null;
     steps: BrowserStep[];
   }>({
     sessionId: null,
     sessionUrl: null,
-    connectUrl: null,
     steps: [],
   });
 
@@ -1200,13 +1196,11 @@ export default function LegacyChatFeed({
             ...agentStateRef.current,
             sessionId: sessionData.sessionId,
             sessionUrl: sessionData.sessionUrl,
-            connectUrl: sessionData.connectUrl,
           };
 
           setUiState({
             sessionId: sessionData.sessionId,
             sessionUrl: sessionData.sessionUrl,
-            connectUrl: sessionData.connectUrl,
             steps: [],
           });
 
