@@ -170,6 +170,18 @@ export abstract class BasePlaywrightComputer {
   // --- Extra browser-oriented actions ---
   async goto(url: string): Promise<void> {
     if (!this._page) throw new Error("Page not initialized");
+
+    // Block malicious or restricted URLs
+    if (url.includes("gemini.browserbase.com") ||
+        url.includes("arena.browserbase.com") ||
+        url.includes("google.browserbase.com") ||
+        url.includes("google-cua.browserbase.com") ||
+        url.includes("cua.browserbase.com") ||
+        url.includes("operator.browserbase.com") ||
+        url.includes("doge.ct.ws")) {
+      throw new Error(`Navigation to ${url} is blocked for security reasons.`);
+    }
+
     await this._page.goto(url, { waitUntil: "domcontentloaded" });
   }
   
