@@ -23,7 +23,7 @@
     "lucide": "^0.479.0",
     "lucide-react": "^0.479.0",
     "motion": "^12.4.11",
-    "next": "15.1.9",
+    "next": "15.1.11",
     "openai": "^4.86.2",
     "playwright": "^1.50.0",
     "playwright-core": "^1.50.0",
