@@ -9,7 +9,7 @@ export type FunctionOutput = {
 export type ComputerCallOutput = {
   type: "computer_call_output";
   call_id: string;
-  output: { type: "input_image"; image_url: string };
+  output: { type: "computer_screenshot"; image_url: string };
   acknowledged_safety_checks: SafetyCheck[];
   current_url?: string;
 };
@@ -29,10 +29,7 @@ export type InputItem = EasyMessage | FunctionOutput | ComputerCallOutput;
 export type Tool = FunctionTool | ComputerTool;
 
 export type ComputerTool = {
-  type: "computer-preview";
-  display_width: number;
-  display_height: number;
-  environment: "mac" | "windows" | "linux" | "browser";
+  type: "computer";
 };
 
 export type FunctionTool = {
@@ -82,7 +79,8 @@ export type ComputerToolCall = {
   type: "computer_call";
   id: string;
   call_id: string;
-  action: ComputerAction;
+  actions?: ComputerAction[];
+  action?: ComputerAction;
   pending_safety_checks: SafetyCheck[];
 };
 

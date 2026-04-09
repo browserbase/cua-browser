@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     console.log("input", input);
 
     computer = new BrowserbaseBrowser(1024, 768, "us-west-2", false, sessionId);
-    agent = new Agent("computer-use-preview", computer);
+    agent = new Agent("gpt-5.4-mini", computer);
     if (!sessionId) {
       return NextResponse.json(
         { error: "Missing sessionId in request body" },
@@ -28,7 +28,14 @@ export async function POST(request: Request) {
       const computerCall = result.output.find(
         (item) => item.type === "computer_call"
       ) as ComputerToolCall;
-      if (computerCall.action.type === "screenshot") {
+      const actions =
+        computerCall.actions && computerCall.actions.length > 0
+          ? computerCall.actions
+          : computerCall.action
+            ? [computerCall.action]
+            : [];
+
+      if (actions.length === 1 && actions[0].type === "screenshot") {
         await computer.connect();
 
         const screenshotAction = await agent.takeAction(result.output);

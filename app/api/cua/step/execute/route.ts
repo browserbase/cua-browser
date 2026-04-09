@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     console.log("output", output);
 
     computer = new BrowserbaseBrowser(1024, 768, "us-west-2", false, sessionId);
-    agent = new Agent("computer-use-preview", computer);
+    agent = new Agent("gpt-5.4-mini", computer);
     if (!sessionId) {
       return NextResponse.json(
         { error: 'Missing sessionId in request body' },

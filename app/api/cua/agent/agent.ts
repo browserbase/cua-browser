@@ -27,7 +27,7 @@ export class Agent {
   public lastResponseId: string | undefined = undefined;
 
   constructor(
-    model: string = "computer-use-preview",
+    model: string = "gpt-5.4-mini",
     computer: BrowserbaseBrowser,
     acknowledgeSafetyCheckCallback: AcknowledgeSafetyCheckCallback = () => true
   ) {
@@ -38,10 +38,7 @@ export class Agent {
 
     this.tools = [
       {
-        type: "computer-preview",
-        display_width: computer.dimensions[0],
-        display_height: computer.dimensions[1],
-        environment: computer.environment,
+        type: "computer",
       },
       {
         type: "function",
@@ -149,7 +146,6 @@ export class Agent {
       model: this.model,
       input: inputItems,
       tools: this.tools,
-      truncation: "auto",
       ...(previousResponseId
         ? { previous_response_id: previousResponseId }
         : {}),
@@ -194,24 +190,37 @@ export class Agent {
   async takeComputerAction(
     computerItem: ComputerToolCall
   ): Promise<ComputerCallOutput> {
-    const action = computerItem.action;
-    const actionType = action.type;
-    const actionArgs = Object.fromEntries(
-      Object.entries(action).filter(([key]) => key !== "type")
-    );
-
-    if (this.printSteps) {
-      console.log(`${actionType}(${JSON.stringify(actionArgs)})`);
-    }
-
     if (!this.computer) {
       throw new Error("Computer not initialized");
     }
 
-    const method = (this.computer as unknown as Record<string, unknown>)[
-      actionType
-    ] as (...args: unknown[]) => unknown;
-    await method.apply(this.computer, Object.values(actionArgs));
+    const actions =
+      computerItem.actions && computerItem.actions.length > 0
+        ? computerItem.actions
+        : computerItem.action
+          ? [computerItem.action]
+          : [];
+
+    for (const action of actions) {
+      const actionType = action.type;
+      const actionArgs = Object.fromEntries(
+        Object.entries(action).filter(([key]) => key !== "type")
+      );
+
+      if (this.printSteps) {
+        console.log(`${actionType}(${JSON.stringify(actionArgs)})`);
+      }
+
+      const method = (this.computer as unknown as Record<string, unknown>)[
+        actionType
+      ] as (...args: unknown[]) => unknown;
+
+      if (typeof method !== "function") {
+        throw new Error(`Unsupported computer action: ${actionType}`);
+      }
+
+      await method.apply(this.computer, Object.values(actionArgs));
+    }
 
     const screenshot = await this.computer.screenshot();
 
@@ -231,7 +240,7 @@ export class Agent {
       call_id: computerItem.call_id,
       acknowledged_safety_checks: pendingChecks,
       output: {
-        type: "input_image",
+        type: "computer_screenshot",
         image_url: `data:image/png;base64,${screenshot}`,
       },
     };
