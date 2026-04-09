@@ -143,15 +143,15 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="h-fit flex items-center justify-center px-3 py-2 bg-white gap-1 text-sm font-medium border border-[#F14A1C] transition-all duration-200 hover:bg-[#F14A1C] group">
+                <button className="h-fit flex items-center justify-center px-3 py-2 bg-white gap-1 text-sm font-medium border border-[#FF4500] transition-all duration-200 hover:bg-[#FF4500] group">
                   <Layers
                     size={20}
-                    className="sm:mr-2 text-[#F14A1C] group-hover:text-white transition-colors duration-200"
+                    className="sm:mr-2 text-[#FF4500] group-hover:text-white transition-colors duration-200"
                     strokeWidth={2}
                     strokeLinecap="square"
                     strokeLinejoin="miter"
                   />
-                  <span className="hidden sm:inline text-[#F14A1C] group-hover:text-white transition-colors duration-200">Deploy</span>
+                  <span className="hidden sm:inline text-[#FF4500] group-hover:text-white transition-colors duration-200">Deploy</span>
                 </button>
               </a>
               <a
@@ -219,7 +219,7 @@ export default function Home() {
                       name="message"
                       type="text"
                       placeholder="What's the price of NVIDIA stock?"
-                      className="w-full px-4 py-3 sm:pr-[140px] pr-[100px] border border-[#CAC8C7] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0 focus:border-[#FF3B00] font-ppsupply text-sm md:text-base md:py-5 lg:py-6 transition-all duration-300 focus:pulse-glow-red focus:backdrop-blur-sm focus:bg-opacity-95 focus:bg-white"
+                      className="w-full px-4 py-3 sm:pr-[140px] pr-[100px] border border-[#CAC8C7] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-0 focus:border-[#FF4500] font-ppsupply text-sm md:text-base md:py-5 lg:py-6 transition-all duration-300 focus:pulse-glow-red focus:backdrop-blur-sm focus:bg-opacity-95 focus:bg-white"
                       style={{
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -242,7 +242,7 @@ export default function Home() {
                         "Find the most recently opened non-draft PR on Github for Browserbase's Stagehand project and make sure the combination-evals in the PR validation passed."
                       )
                     }
-                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF3B00] hover:text-[#FF3B00] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,59,0,0.05)] rounded-none"
+                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF4500] hover:text-[#FF4500] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,69,0,0.05)] rounded-none"
                   >
                     <div className="w-full h-full flex flex-row justify-between items-start px-3 py-2 md:px-4 md:py-3 space-y-3">
                       <span className="text-left">Review a pull request<br />on Github</span>
@@ -260,7 +260,7 @@ export default function Home() {
                         "Play a game of 2048 on https://www.2048.org/. Just try to win and I'll watch. Good luck!"
                       )
                     }
-                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF3B00] hover:text-[#FF3B00] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,59,0,0.05)] rounded-none"
+                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF4500] hover:text-[#FF4500] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,69,0,0.05)] rounded-none"
                   >
                     <div className="w-full h-full flex flex-row justify-between items-start px-3 py-2 md:px-4 md:py-3">
                       <span className="text-left">Play a challenging<br />game of 2048</span>
@@ -276,7 +276,7 @@ export default function Home() {
                         "Please visit https://docs.google.com/spreadsheets/d/16fFgY7y4B2AnZLLFx4ajbBh-cuaXE-PU2ldQx-H-CcA/edit?gid=0#gid=0 and analyze the data in the sheet."
                       )
                     }
-                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF3B00] hover:text-[#FF3B00] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,59,0,0.05)] rounded-none"
+                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF4500] hover:text-[#FF4500] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,69,0,0.05)] rounded-none"
                   >
                     <div className="w-full h-full flex flex-row justify-between items-start px-3 py-2 md:px-4 md:py-3 space-y-3">
                       <span className="text-left">Analyze a<br />spreadsheet</span>
@@ -288,7 +288,7 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.7 }}
                     onClick={() => startChat("How much is NVIDIA stock?")}
-                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF3B00] hover:text-[#FF3B00] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,59,0,0.05)] rounded-none"
+                    className="p-3 md:p-5 lg:p-6 text-sm md:text-base lg:text-xl text-[#2E191E] border border-[#CAC8C7] hover:border-[#FF4500] hover:text-[#FF4500] transition-colors font-ppsupply font-medium text-center overflow-hidden text-ellipsis break-words whitespace-normal md:min-h-[100px] lg:min-h-[120px] flex items-center justify-center backdrop-blur-sm bg-opacity-60 bg-[rgba(245,240,255,0.15)] hover:bg-[rgba(255,69,0,0.05)] rounded-none"
                   >
                     <div className="w-full h-full flex flex-row justify-between items-start px-3 py-2 md:px-4 md:py-3 space-y-3">
                       <span className="text-left">Check the price<br />of NVIDIA stock</span>
@@ -330,7 +330,7 @@ export default function Home() {
                 animate={{ opacity: 0.1 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="absolute top-0 right-0 sm:w-20 sm:h-20 w-16 h-16 bg-[#FF3B00] rounded-full blur-xl"></div>
+                <div className="absolute top-0 right-0 sm:w-20 sm:h-20 w-16 h-16 bg-[#FF4500] rounded-full blur-xl"></div>
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-blue-400 rounded-full blur-xl"></div>
               </motion.div>
 
@@ -343,7 +343,7 @@ export default function Home() {
                 Powered by{" "}
                 <motion.a
                   href="https://browserbase.com"
-                  className="text-[#FF3B00] hover:underline relative"
+                  className="text-[#FF4500] hover:underline relative"
                   whileHover={{ scale: 1.05 }}
                 >
                   🅱️ Browserbase

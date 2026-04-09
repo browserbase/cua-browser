@@ -51,7 +51,7 @@ export const SessionControls: React.FC<SessionControlsProps> = ({
       </div>
 
       <motion.button
-        className="flex items-center justify-center px-2 py-0.5 text-sm text-white bg-[#FF3B00] hover:bg-[#E63500] transition-colors"
+        className="flex items-center justify-center px-2 py-0.5 text-sm text-white bg-[#FF4500] hover:bg-[#E63E00] transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStop}
