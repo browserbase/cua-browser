@@ -21,6 +21,7 @@ interface SessionCreateParams {
       height: number;
     };
     blockAds: boolean;
+    advancedStealth: boolean;
   };
   region: "us-west-2" | "us-east-1" | "eu-central-1" | "ap-southeast-1";
   proxies: boolean;
@@ -94,6 +95,7 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
       const sessionParams: SessionCreateParams = {
         projectId: this.projectId,
         browserSettings: {
+          advancedStealth: true,
           blockAds: true,
           viewport: {
             width,

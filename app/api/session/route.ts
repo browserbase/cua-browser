@@ -91,6 +91,7 @@ async function createSession(timezone?: string) {
       height: 768,
     },
     blockAds: true,
+    advancedStealth: true,
   };
   const session = await bb.sessions.create({
     projectId: process.env.BROWSERBASE_PROJECT_ID!,
