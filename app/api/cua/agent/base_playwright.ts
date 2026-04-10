@@ -45,6 +45,10 @@ const HOTKEYS: Record<string, string> = {
   "win": "Meta",
 }
 
+function normalizeCUAKey(key: string): string {
+  return key.trim().toLowerCase().replace(/[_\s-]+/g, "");
+}
+
 export type Environment = "browser";
 
 /**
@@ -134,20 +138,24 @@ export abstract class BasePlaywrightComputer {
   async keypress(keys: string[]): Promise<void> {
     if (!this._page) throw new Error("Page not initialized");
 
-    console.log("HOT KEY", HOTKEYS[keys[0].toLowerCase()]);
+    const normalizedHotkey = normalizeCUAKey(keys[0]);
+    console.log("HOT KEY", HOTKEYS[normalizedHotkey]);
     // Support for hotkeys
-    if (HOTKEYS[keys[0].toLowerCase()]) {
-      await this._page.keyboard.down(HOTKEYS[keys[0].toLowerCase()]);
-      console.log("DOWN", HOTKEYS[keys[0].toLowerCase()]);
+    if (HOTKEYS[normalizedHotkey]) {
+      await this._page.keyboard.down(HOTKEYS[normalizedHotkey]);
+      console.log("DOWN", HOTKEYS[normalizedHotkey]);
       for (let i = 1; i < keys.length; i++) {
-        await this._page.keyboard.press(keys[i]);
-        console.log("PRESS", keys[i]);
+        const mappedKey =
+          CUA_KEY_TO_PLAYWRIGHT_KEY[normalizeCUAKey(keys[i])] || keys[i];
+        await this._page.keyboard.press(mappedKey);
+        console.log("PRESS", mappedKey);
       }
-      await this._page.keyboard.up(HOTKEYS[keys[0].toLowerCase()]);
-      console.log("UP", HOTKEYS[keys[0].toLowerCase()]);
+      await this._page.keyboard.up(HOTKEYS[normalizedHotkey]);
+      console.log("UP", HOTKEYS[normalizedHotkey]);
     } else {
       for (const key of keys) {
-        const mappedKey = CUA_KEY_TO_PLAYWRIGHT_KEY[key.toLowerCase()] || key;
+        const mappedKey =
+          CUA_KEY_TO_PLAYWRIGHT_KEY[normalizeCUAKey(key)] || key;
         await this._page.keyboard.press(mappedKey);
       }
     }
