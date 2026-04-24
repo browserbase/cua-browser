@@ -1,3 +1,5 @@
+> **This repository is no longer actively maintained.** The source code has been moved to [browserbase/gtm-demos](https://github.com/browserbase/gtm-demos/tree/main/apps/cua-browser).
+
 # CUA Browser
 
 This is a playground for you to test, explore, and get inspired by the power of Browserbase and Open AI's Computer Use Agent. This is free and always will be! It's not a product, just a demo playground
