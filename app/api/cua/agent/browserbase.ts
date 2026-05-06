@@ -124,10 +124,21 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
     const browser = await chromium.connectOverCDP(this.session.connectUrl, {
       timeout: 1000 * 60,
     });
-    const context = browser.contexts()[0];
+    const [width, height] = this.dimensions;
+    const context =
+      browser.contexts()[0] ??
+      (await browser.newContext({
+        viewport: {
+          width,
+          height,
+        },
+      }));
     // Inject inline cursor-rendering script globally for every page
     const pages = context.pages();
-    const page = pages[pages.length - 1];
+    const page =
+      pages.find((existingPage) => existingPage.url() !== "about:blank") ??
+      pages[pages.length - 1] ??
+      (await context.newPage());
     page
       .evaluate(() => {
         const CURSOR_ID = "__cursor__";
@@ -166,9 +177,11 @@ export class BrowserbaseBrowser extends BasePlaywrightComputer {
         console.error("Error injecting cursor-rendering script:", error);
       });
 
-    // Only navigate to Google if it's a new session
-    if (!this.sessionId) {
-      await page.goto("https://www.google.com");
+    // Bootstrap to a real page to avoid stalling on about:blank.
+    if (!this.sessionId || page.url() === "about:blank") {
+      await page.goto("https://www.google.com", {
+        waitUntil: "domcontentloaded",
+      });
     }
 
     return [browser, page];
